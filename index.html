@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUMQS - Digital Uniform Management & Queuing System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ERROR / NOTIFICATION POPUP PANEL (Global) -->
+    <div class="alert-banner hidden" id="system-alert">
+        <span class="alert-message" id="alert-text">Error: Something went wrong.</span>
+        <button class="alert-close" id="alert-close-btn">&times;</button>
+    </div>
+
+    <!-- ================= 1. LOGIN SCREEN (Visible by default) ================= -->
+    <main class="login-wrapper" id="login-view">
+        <div class="login-card">
+            <div class="login-brand">
+                <span class="logo-accent">Uni</span>Queue
+            </div>
+            <div class="login-header">
+                <h2>DUMQS Portal</h2>
+                <p>Please select your role and sign in to continue</p>
+            </div>
+            
+            <div class="role-toggle-container">
+                <button class="auth-toggle-btn active" id="toggle-student">Student</button>
+                <button class="auth-toggle-btn" id="toggle-staff">Admin / Staff</button>
+            </div>
+
+            <form id="auth-form" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="auth-email" id="email-label">Student Email / ID</label>
+                    <input type="text" id="auth-email" class="form-control" placeholder="e.g., student@cvsu.edu.ph" required>
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" id="btn-login">Log In</button>
+            </form>
+
+            
+            
+            <div class="auth-footer">
+                <p>Secured Role-Based Access Gate</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= 2. MAIN SYSTEM LAYOUT (Hidden by default) ================= -->
+    <div id="main-system-layout" class="hidden">
+        
+        <!-- Top Navigation Bar (Only visible post-login) -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <span class="logo-accent">Uni</span>Queue
+                </div>
+                <div class="nav-right">
+                    <div class="live-indicator">
+                        <span class="dot animate-pulse"></span>
+                        <span id="status-text">System Live</span>
+                    </div>
+                    <button class="btn btn-secondary btn-small" id="btn-logout">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- App Dashboards Container -->
+        <div class="app-container">
+
+            <!-- STUDENT PORTAL VIEW -->
+            <main class="dashboard-grid hidden" id="student-view">
+                <!-- Left Side: Ticket Generator -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Select Uniform & Request Ticket</h2>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="uniform-type">Uniform Type</label>
+                            <select id="uniform-type" class="form-control">
+                                <option value="School Uniform">Regular School Uniform</option>
+                                <option value="PE Uniform">Physical Education (P.E.) Uniform</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="uniform-size">Size Selection</label>
+                            <select id="uniform-size" class="form-control">
+                                <option value="S">Small (S)</option>
+                                <option value="M" selected>Medium (M)</option>
+                                <option value="L">Large (L)</option>
+                                <option value="XL">Extra Large (XL)</option>
+                            </select>
+                        </div>
+                        <div class="stock-display">
+                            <span class="stock-label">Real-time Stock:</span>
+                            <span class="badge badge-yellow" id="live-stock-level">In Stock</span>
+                        </div>
+                        <button class="btn btn-primary w-100" id="btn-request-ticket">Generate Queue Ticket</button>
+                    </div>
+                    <div class="student-ticket-display hidden" id="my-ticket-card">
+                        <div class="ticket-ticket-header">Your Active Ticket</div>
+                        <div class="ticket-ticket-number" id="my-ticket-num">U-0000</div>
+                        <div class="ticket-details">
+                            <p><strong>Item:</strong> <span id="my-ticket-details">PE Uniform (M)</span></p>
+                            <p><strong>Status:</strong> <span class="status-badge" id="my-ticket-status">Waiting</span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Side: Live Queue Tracker -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Live Queue Tracker</h2>
+                        <span class="badge badge-yellow">Live Update</span>
+                    </div>
+                    <div class="current-ticket">
+                        <div class="ticket-label">Now Serving</div>
+                        <div class="ticket-number" id="now-serving-num">U-1024</div>
+                        <div class="counter-label">Proceed to <span id="counter-num">Counter 1</span></div>
+                    </div>
+                    <div class="queue-history">
+                        <h3>Next in Line</h3>
+                        <ul class="queue-list" id="upcoming-queue"></ul>
+                    </div>
+                </section>
+            </main>
+
+            <!-- STAFF PORTAL VIEW -->
+            <main class="dashboard-grid hidden" id="staff-view">
+                <!-- Left Side: Queue Controls -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Queue Management</h2>
+                    </div>
+                    <div class="action-box">
+                        <h3>Current Serving Operations</h3>
+                        <p class="box-intro">Manage queue flow and update student transaction status levels:</p>
+                        <div class="button-group">
+                            <button class="btn btn-primary" id="btn-staff-next">Advance Queue</button>
+                            <button class="btn btn-secondary" id="btn-staff-complete">Complete Release</button>
+                        </div>
+                    </div>
+                    <div class="action-box">
+                        <h3>Daily Quota & System Config</h3>
+                        <div class="form-group inline-group">
+                            <div>
+                                <label for="input-daily-quota">Daily Limit/Capacity</label>
+                                <input type="number" id="input-daily-quota" class="form-control" value="50" min="1">
+                            </div>
+                            <button class="btn btn-secondary btn-small" id="btn-update-quota">Update Limit</button>
+                        </div>
+                        <div class="quota-progress-container">
+                            <span class="quota-text">Daily Capacity Used: <strong id="quota-progress-text">0/50</strong></span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" id="quota-bar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Side: Inventory Records -->
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Inventory & Requests</h2>
+                    </div>
+                    <div class="inventory-table-container">
+                        <table class="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Uniform ID</th>
+                                    <th>Uniform Type</th>
+                                    <th>Size</th>
+                                    <th>Stock Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-tbody">
+                                <tr>
+                                    <td>UNIFORM-01</td>
+                                    <td>School Uniform</td>
+                                    <td>M</td>
+                                    <td class="stock-qty" data-id="UNIFORM-01">42</td>
+                                    <td><button class="btn-table btn-add-stock" data-id="UNIFORM-01">+10</button></td>
+                                </tr>
+                                <tr>
+                                    <td>UNIFORM-02</td>
+                                    <td>PE Uniform</td>
+                                    <td>M</td>
+                                    <td class="stock-qty" data-id="UNIFORM-02">15</td>
+                                    <td><button class="btn-table btn-add-stock" data-id="UNIFORM-02">+10</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="log-section">
+                        <h3>Live System Feed</h3>
+                        <div class="activity-log" id="activity-log">
+                            <div class="log-entry">DUMQS operational environment ready...</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

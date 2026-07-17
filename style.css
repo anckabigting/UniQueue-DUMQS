@@ -1,0 +1,613 @@
+/* Color Palette System (Modern FEU-Inspired Design) */
+:root {
+    --bg-cream: #FCFBF7;          /* Classic clean base cream */
+    --panel-cream: #F4F2E6;       /* Slightly deeper contrast cream for panels */
+    --cvsu-green: #115737;         /* Core FEU Deep Forest Green */
+    --cvsu-green-hover: #0a3a24;
+    --cvsu-yellow: #FAB814;        /* Rich Gold/Yellow Accent */
+    --cvsu-yellow-hover: #e0a30b;
+    --text-dark: #1F2622;         /* High-readability dark moss charcoal */
+    --text-muted: #5D6661;
+    --border-soft: #E4E0CE;       /* Neutral soft border */
+    --white: #FFFFFF;
+    --alert-red: #D9381E;
+
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Typography */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    letter-spacing: -0.01em;
+}
+
+/* Navigation Layout */
+.navbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 16px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--cvsu-green);
+}
+
+.logo-accent {
+    color: var(--cvsu-yellow);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #E6F3EC;
+    color: var(--cvsu-green);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--cvsu-green);
+    border-radius: 50%;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* System Error & Success Alert Banner */
+.alert-banner {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background-color: var(--alert-red);
+    color: var(--white);
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+}
+
+.alert-banner.success {
+    background-color: var(--cvsu-green);
+}
+
+.alert-close {
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* ================= LOGIN SCREEN STYLING ================= */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--bg-cream);
+}
+
+.login-card {
+    background-color: var(--white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 12px 36px rgba(17, 87, 55, 0.05);
+}
+
+.login-brand {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--cvsu-green);
+    margin-bottom: 16px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.login-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.login-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.role-toggle-container {
+    background-color: var(--panel-cream);
+    border-radius: var(--radius-md);
+    padding: 6px;
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+}
+
+.auth-toggle-btn {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+}
+
+.auth-toggle-btn.active {
+    background-color: var(--white);
+    color: var(--cvsu-green);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ================= SYSTEM LAYOUT STYLING ================= */
+.app-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.dashboard-grid {
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 32px;
+}
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Panel Design */
+.panel {
+    background-color: var(--white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: 0 4px 18px rgba(17, 87, 55, 0.02);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.panel-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* Badges */
+.badge {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-green {
+    background-color: var(--cvsu-green);
+    color: var(--white);
+}
+
+.badge-yellow {
+    background-color: var(--cvsu-yellow);
+    color: var(--text-dark);
+}
+
+/* Form Controls */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.form-control {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.form-control:focus {
+    border-color: var(--cvsu-green);
+}
+
+.stock-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--panel-cream);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.stock-label {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Buttons */
+.btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: var(--cvsu-green-hover);
+    color: var(--white);
+    border: 1px solid var(--border-soft);
+}
+
+.btn-primary:hover {
+    background-color: var(--panel-cream);
+    color: var(--text-dark);
+    border-color: var(--cvsu-green);
+}
+
+.btn-secondary {
+    background-color: var(--cvsu-yellow);
+    color: var(--text-dark);
+    border: 1px solid var(--border-soft);
+}
+
+.btn-secondary:hover {
+    background-color: var(--panel-cream);
+    border-color: var(--cvsu-yellow);
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* Ticket Display styling */
+.student-ticket-display {
+    background-color: var(--cvsu-green);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    text-align: center;
+    margin-top: 24px;
+}
+
+.ticket-ticket-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+}
+
+.ticket-ticket-number {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--cvsu-yellow);
+    margin: 8px 0;
+}
+
+.status-badge {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* Live Queue Monitor */
+.current-ticket {
+    background-color: var(--panel-cream);
+    border-radius: var(--radius-md);
+    padding: 32px 20px;
+    text-align: center;
+    border: 1px solid var(--border-soft);
+    margin-bottom: 24px;
+}
+
+.ticket-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.ticket-number {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--cvsu-green);
+    margin: 8px 0;
+    letter-spacing: -0.02em;
+}
+
+.counter-label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.counter-label span {
+    color: var(--cvsu-green);
+    font-weight: 700;
+}
+
+.queue-history h3, .log-section h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.queue-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background-color: var(--bg-cream);
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.status-wait {
+    font-size: 11px;
+    background-color: var(--white);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    color: var(--text-muted);
+}
+
+/* Admin / Staff Controls */
+.action-box {
+    background-color: var(--panel-cream);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.action-box h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--feu-green);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.box-intro {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.inline-group {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.inline-group > div {
+    flex: 1;
+}
+
+.quota-progress-container {
+    margin-top: 16px;
+}
+
+.quota-text {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-soft);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--cvsu-green);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Inventory Rules */
+.inventory-table-container {
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.inventory-table th, .inventory-table td {
+    padding: 12px 16px;
+}
+
+.inventory-table th {
+    background-color: var(--panel-cream);
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.inventory-table td {
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.btn-table {
+    padding: 6px 12px;
+    background-color: var(--panel-cream);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-table:hover {
+    background-color: var(--cvsu-yellow);
+}
+
+/* Console Logs */
+.activity-log {
+    background-color: var(--text-dark);
+    color: #A4B2AA;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    height: 120px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.log-entry {
+    line-height: 1.4;
+}
+
+.log-entry::before {
+    content: "> ";
+    color: var(--cvsu-yellow);
+}

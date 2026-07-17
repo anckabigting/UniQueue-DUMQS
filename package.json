@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anckabigting/inde.git"
+    "url": "git+https://github.com/anckabigting/UniQueue-DUMQS.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/anckabigting/inde/issues"
+    "url": "https://github.com/anckabigting/UniQueue-DUMQS.git/issues"
   },
-  "homepage": "https://github.com/anckabigting/inde#readme",
+  "homepage": "https://github.com/anckabigting/UniQueue-DUMQS#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",

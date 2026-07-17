@@ -168,22 +168,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Form Submission & Dashboard Router
-    authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const inputEmail = authEmail.value.trim();
-        const inputPassword = authPassword.value;
-        const matchingRoleAccount = mockUsersDB[systemState.selectedRole];
+   authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const inputEmail = authEmail.value.trim();
+    const inputPassword = authPassword.value;
+    const selectedRole = systemState.selectedRole; // 'student' or 'staff'
 
-        if (inputEmail === matchingRoleAccount.email && inputPassword === matchingRoleAccount.password) {
-            systemState.currentUser = inputEmail;
+    try {
+        // Send login payload to your backend
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: inputEmail,
+                password: inputPassword,
+                role: selectedRole
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            systemState.currentUser = data.user.email;
             
-            // Step 1: Slide out authentication screen, Slide in application layout
+            // Hide login, show system layout
             loginView.classList.add('hidden');
             mainSystemLayout.classList.remove('hidden');
             alertBanner.classList.add('hidden');
 
-            // Step 2: Render targeted dashboard view
-            if (systemState.selectedRole === 'student') {
+            if (data.user.role === 'student') {
                 studentView.classList.remove('hidden');
                 staffView.classList.add('hidden');
                 showAlert("Welcome to the Student Uniform Queue Portal!", true);
@@ -191,12 +206,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 staffView.classList.remove('hidden');
                 studentView.classList.add('hidden');
                 showAlert("Staff session successfully authorized.", true);
-                logActivity(`Admin authorized session opened: ${inputEmail}`);
+                logActivity(`Admin authorized session opened: ${data.user.email}`);
             }
         } else {
-            showAlert("Authentication Fail: Invalid institutional ID or secret key combination.", false);
+            showAlert(data.message || "Authentication Failed", false);
         }
-    });
+    } catch (err) {
+        console.error(err);
+        showAlert("Unable to connect to the backend server.", false);
+    }
+});
 
     // Logout session destruction
     btnLogout.addEventListener('click', () => {

@@ -1,6 +1,6 @@
 ## Uniqueue - DUMQS: Digital Uniform Management & Queuing System
 
-## Uniqueque is a web-based, role-based queuing and inventory management application designed to streamline school uniform requests and distribution.This project is submitted as a partial requirement for COSC 75A: Software Engineering II.  
+Uniqueque is a web-based, role-based queuing and inventory management application designed to streamline school uniform requests and distribution.This project is submitted as a partial requirement for COSC 75A: Software Engineering II.  
 
 # 🚀 Features
 -- Role-Based Authentication Screen: A secure, unified entry point that routes users to their specific interface based on their account type (Student or Admin/Staff).  

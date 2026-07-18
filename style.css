@@ -1,8 +1,8 @@
-/* Color Palette System (Modern FEU-Inspired Design) */
+/* Color Palette System (Modern CVSU-Inspired Design) */
 :root {
     --bg-cream: #FCFBF7;          /* Classic clean base cream */
     --panel-cream: #F4F2E6;       /* Slightly deeper contrast cream for panels */
-    --cvsu-green: #115737;         /* Core FEU Deep Forest Green */
+    --cvsu-green: #115737;         /* Core CVSU Deep Forest Green */
     --cvsu-green-hover: #0a3a24;
     --cvsu-yellow: #FAB814;        /* Rich Gold/Yellow Accent */
     --cvsu-yellow-hover: #e0a30b;
@@ -206,13 +206,36 @@ body {
 .auth-footer {
     text-align: center;
     margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Adds balanced space between registration link and the footer text */
+}
+
+.register-prompt {
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.register-prompt a {
+    color: var(--cvsu-green);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.register-prompt a:hover {
+    color: var(--cvsu-yellow);
+    text-decoration: underline;
+}
+
+.secured-text {
     font-size: 11px;
     color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
-
 /* ================= SYSTEM LAYOUT STYLING ================= */
 .app-container {
     max-width: 1360px;
@@ -280,9 +303,16 @@ body {
 }
 
 /* Form Controls */
-#auth-form .form-group + .form-group {
+form-group + .form-group {
     margin-top: 16px; /* Adds extra breathing room above the password group */
 }
+
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* This automatically ensures healthy spacing between fields and the button */
+}
+
 .form-section {
     display: flex;
     flex-direction: column;
@@ -496,7 +526,7 @@ body {
 .action-box h3 {
     font-size: 14px;
     font-weight: 700;
-    color: var(--feu-green);
+    color: var(--cvsu-green);
     margin-bottom: 12px;
     text-transform: uppercase;
 }

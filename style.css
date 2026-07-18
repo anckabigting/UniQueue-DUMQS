@@ -280,6 +280,9 @@ body {
 }
 
 /* Form Controls */
+#auth-form .form-group + .form-group {
+    margin-top: 16px; /* Adds extra breathing room above the password group */
+}
 .form-section {
     display: flex;
     flex-direction: column;

@@ -1,27 +1,29 @@
 {
-  "name": "digital-uniform-management-and-queueing-system",
+  "name": "uni-queue",
   "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "\u0000",
+  "keywords": [],
+  "homepage": "https://github.com/anckabigting/uni-queue#readme",
+  "bugs": {
+    "url": "https://github.com/anckabigting/uni-queue.git/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anckabigting/UniQueue-DUMQS.git"
+    "url": "git+https://github.com/anckabigting/uni-queue.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/anckabigting/UniQueue-DUMQS.git/issues"
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "homepage": "https://github.com/anckabigting/UniQueue-DUMQS#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pg": "^8.22.0"
-  }
+  },
+  "devDependencies": {}
 }

@@ -11,14 +11,14 @@ Uniqueque is a web-based, role-based queuing and inventory management applicatio
 Currently, this system is under development and runs entirely in the browser using front-end logic and a simulated mock database. You do not need to set up a database to test it locally.  -- - Local Credentials
 Use these exact combinations to test the respective user roles:
 # 1. Student Gateway
-Role Selection: Student
-Email / ID: student@cvsu.edu.ph  
-Password: password123  
+- Role Selection: Student
+- Email / ID: student@cvsu.edu.ph  
+- Password: password123  
 
 # 2. Admin / Staff Gateway
-Role Selection: Admin / Staff  
-Email / Account ID: admin@cvsu.edu.ph  
-Password: admin123  
+- Role Selection: Admin / Staff  
+- Email / Account ID: admin@cvsu.edu.ph  
+- Password: admin123  
 
 # ⚙️ Future Enhancements & Database Migration
 This project is designed with modularity in mind. Future development milestones include:

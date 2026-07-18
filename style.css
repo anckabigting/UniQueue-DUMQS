@@ -313,6 +313,25 @@ form-group + .form-group {
     gap: 20px; /* This automatically ensures healthy spacing between fields and the button */
 }
 
+.field-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+#link-forgot-password {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+#link-forgot-password:hover {
+    color: var(--cvsu-green);
+    text-decoration: underline;
+}
+
 .form-section {
     display: flex;
     flex-direction: column;
